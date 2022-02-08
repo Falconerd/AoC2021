@@ -1,6 +1,5 @@
 const std = @import("std");
 const print = std.debug.print;
-const OpenFlags = std.fs;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
