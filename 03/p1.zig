@@ -1,5 +1,6 @@
 const std = @import("std");
 const print = std.debug.print;
+const mostCommonBitAt = @import("./util.zig").mostCommonBitAt;
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -24,25 +25,16 @@ pub fn main() !void {
     var gamma: usize = 0;
     var epsilon: usize = 0;
 
-    var i: u8 = 0;
-    while (i < bit_count) : (i += 1) {
-        var bc: isize = 0;
-        const mask = @as(u16, 1) << @truncate(u4, i);
+    var offset: u4 = 0;
+    while (offset < bit_count) : (offset += 1) {
+        const most_common_bit = mostCommonBitAt(numbers, offset, 1);
 
-        for (numbers.items) |number| {
-            const bit = mask & number;
+        const mask = @as(u16, 1) << offset;
 
-            if (bit == 0) {
-                bc -= 1;
-            } else {
-                bc += 1;
-            }
-        }
-
-        if (bc >= 0) {
-            gamma |= mask;
-        } else {
+        if (most_common_bit == 0) {
             epsilon |= mask;
+        } else {
+            gamma |= mask;
         }
     }
 
