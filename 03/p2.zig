@@ -55,22 +55,6 @@ pub fn main() !void {
         try numbers.append(n);
     }
 
-    var gamma: usize = 0;
-    var epsilon: usize = 0;
-
-    var offset: u4 = 0;
-    while (offset < bit_count) : (offset += 1) {
-        const most_common_bit = mostCommonBitAt(numbers, offset, 1);
-
-        const mask = @as(u16, 1) << offset;
-
-        if (most_common_bit == 0) {
-            epsilon |= mask;
-        } else {
-            gamma |= mask;
-        }
-    }
-
     var oxygen_rating: u16 = getRating(numbers, bit_count, 1, allocator);
     var carbon_dioxide_rating: u16 = getRating(numbers, bit_count, 0, allocator);
 
